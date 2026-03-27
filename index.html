@@ -100,7 +100,6 @@
 
     <p>💰 Pay to: <b>7095152479@ybl</b></p>
 
-    <!-- FINAL BUTTON -->
     <a id="orderBtn" target="_blank">
         <button onclick="prepareWhatsApp()">Place Order</button>
     </a>
@@ -161,7 +160,8 @@ function prepareWhatsApp() {
 🏠 Address: ${address}
 📍 Location: ${location}`;
 
-    let adminNumber = "917095152479"; // ✅ UPDATED NUMBER
+    // ✅ YOUR ADMIN NUMBER
+    let adminNumber = "917095152479";
 
     let url = "https://wa.me/" + adminNumber + "?text=" + encodeURIComponent(message);
 
