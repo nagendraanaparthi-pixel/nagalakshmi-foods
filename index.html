@@ -100,7 +100,7 @@
 
     <p>💰 Pay to: <b>7095152479@ybl</b></p>
 
-    <!-- FINAL BUTTON FIX -->
+    <!-- FINAL BUTTON -->
     <a id="orderBtn" target="_blank">
         <button onclick="prepareWhatsApp()">Place Order</button>
     </a>
@@ -161,14 +161,10 @@ function prepareWhatsApp() {
 🏠 Address: ${address}
 📍 Location: ${location}`;
 
-    let adminNumber = "919665569224";
+    let adminNumber = "917095152479"; // ✅ UPDATED NUMBER
 
-    let url = "https://api.whatsapp.com/send?phone=" 
-                + adminNumber 
-                + "&text=" 
-                + encodeURIComponent(message);
+    let url = "https://wa.me/" + adminNumber + "?text=" + encodeURIComponent(message);
 
-    // ✅ FINAL FIX (anchor-based navigation)
     document.getElementById("orderBtn").href = url;
 }
 
