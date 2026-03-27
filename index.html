@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nagalakshmi Foods</title>
+    <style>
+        body { font-family: Arial; background: #f5f5f5; }
+        h1 { text-align: center; color: #d35400; }
+        .container { padding: 20px; text-align: center; }
+
+        .menu { display: flex; justify-content: center; flex-wrap: wrap; }
+        .item {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            background: white;
+        }
+
+        img { width: 100%; height: 120px; }
+
+        .hidden { display: none; }
+
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input, textarea {
+            padding: 8px;
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🍽️ Nagalakshmi Foods</h1>
+
+<div class="container">
+
+<!-- STEP 1 -->
+<div id="step1">
+    <h2>Select Food</h2>
+
+    <div class="menu">
+        <div class="item">
+            <img src="https://via.placeholder.com/150">
+            <h3>Biryani</h3>
+            <p>₹150</p>
+            <input type="checkbox" value="Biryani - ₹150">
+        </div>
+
+        <div class="item">
+            <img src="https://via.placeholder.com/150">
+            <h3>Pizza</h3>
+            <p>₹200</p>
+            <input type="checkbox" value="Pizza - ₹200">
+        </div>
+
+        <div class="item">
+            <img src="https://via.placeholder.com/150">
+            <h3>Burger</h3>
+            <p>₹100</p>
+            <input type="checkbox" value="Burger - ₹100">
+        </div>
+    </div>
+
+    <button onclick="goToStep2()">Next</button>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="hidden">
+    <h2>Customer Details</h2>
+
+    Name:<br>
+    <input type="text" id="name"><br><br>
+
+    Phone:<br>
+    <input type="text" id="phone"><br><br>
+
+    <button onclick="goToStep3()">Next</button>
+</div>
+
+<!-- STEP 3 -->
+<div id="step3" class="hidden">
+    <h2>Delivery & Payment</h2>
+
+    Address:<br>
+    <textarea id="address"></textarea><br><br>
+
+    WhatsApp Location Link:<br>
+    <input type="text" id="location" placeholder="Paste location link"><br><br>
+
+    Payment Screenshot:<br>
+    <input type="file"><br><br>
+
+    <p>💰 Pay to: <b>7095152479@ybl</b></p>
+
+    <!-- FINAL BUTTON FIX -->
+    <a id="orderBtn" target="_blank">
+        <button onclick="prepareWhatsApp()">Place Order</button>
+    </a>
+
+</div>
+
+</div>
+
+<script>
+
+let selectedItems = [];
+
+function goToStep2() {
+    let checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+
+    selectedItems = [];
+    checkboxes.forEach(cb => selectedItems.push(cb.value));
+
+    if(selectedItems.length === 0){
+        alert("Please select at least one item!");
+        return;
+    }
+
+    document.getElementById("step1").classList.add("hidden");
+    document.getElementById("step2").classList.remove("hidden");
+}
+
+function goToStep3() {
+    let name = document.getElementById("name").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+
+    if(name === "" || phone === ""){
+        alert("Please enter Name and Phone!");
+        return;
+    }
+
+    document.getElementById("step2").classList.add("hidden");
+    document.getElementById("step3").classList.remove("hidden");
+}
+
+function prepareWhatsApp() {
+
+    let name = document.getElementById("name").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let address = document.getElementById("address").value.trim();
+    let location = document.getElementById("location").value.trim();
+
+    if(address === ""){
+        alert("Please enter delivery address!");
+        return;
+    }
+
+    let message = `🍽️ New Order - Nagalakshmi Foods
+
+👤 Name: ${name}
+📞 Phone: ${phone}
+🍔 Items: ${selectedItems.join(", ")}
+🏠 Address: ${address}
+📍 Location: ${location}`;
+
+    let adminNumber = "919665569224";
+
+    let url = "https://api.whatsapp.com/send?phone=" 
+                + adminNumber 
+                + "&text=" 
+                + encodeURIComponent(message);
+
+    // ✅ FINAL FIX (anchor-based navigation)
+    document.getElementById("orderBtn").href = url;
+}
+
+</script>
+
+</body>
+</html>
